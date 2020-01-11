@@ -12,7 +12,7 @@ const server = http.createServer((req, res) => {
   // PRODUCT OVERVIEW
   if (pathName === "/products" || pathName === "") {
     res.writeHead(200, { "Content-type": "text/html" });
-    fs.readFile(`${__dirname}/template-overview.html`, "utf-8", (err, data) => {
+    fs.readFile(`${__dirname}/index.html`, "utf-8", (err, data) => {
       let overviewOutput = data;
       fs.readFile(`${__dirname}/template-card.html`, "utf-8", (err, data) => {
         const cardsOutput = laptopData
