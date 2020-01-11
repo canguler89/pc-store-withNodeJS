@@ -12,39 +12,27 @@ const server = http.createServer((req, res) => {
   // PRODUCT OVERVIEW
   if (pathName === "/products" || pathName === "") {
     res.writeHead(200, { "Content-type": "text/html" });
-    fs.readFile(
-      `${__dirname}/templates/template-overview.html`,
-      "utf-8",
-      (err, data) => {
-        let overviewOutput = data;
-        fs.readFile(
-          `${__dirname}/templates/template-card.html`,
-          "utf-8",
-          (err, data) => {
-            const cardsOutput = laptopData
-              .map(el => replaceTemplate(data, el))
-              .join("");
-            overviewOutput = overviewOutput.replace("{%CARDS%}", cardsOutput);
+    fs.readFile(`${__dirname}/template-overview.html`, "utf-8", (err, data) => {
+      let overviewOutput = data;
+      fs.readFile(`${__dirname}/template-card.html`, "utf-8", (err, data) => {
+        const cardsOutput = laptopData
+          .map(el => replaceTemplate(data, el))
+          .join("");
+        overviewOutput = overviewOutput.replace("{%CARDS%}", cardsOutput);
 
-            res.end(overviewOutput);
-          }
-        );
-      }
-    );
+        res.end(overviewOutput);
+      });
+    });
   }
 
   // LAPTOP DETAILS
   else if (pathName === "/laptop" && id < laptopData.length) {
     res.writeHead(200, { "Content-type": "text/html" });
-    fs.readFile(
-      `${__dirname}/templates/template-laptop.html`,
-      "utf-8",
-      (err, data) => {
-        const laptop = laptopData[id];
-        const output = replaceTemplate(data, laptop);
-        res.end(output);
-      }
-    );
+    fs.readFile(`${__dirname}/template-laptop.html`, "utf-8", (err, data) => {
+      const laptop = laptopData[id];
+      const output = replaceTemplate(data, laptop);
+      res.end(output);
+    });
   }
 
   // IMAGES
