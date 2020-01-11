@@ -46,6 +46,14 @@ const server = http.createServer((req, res) => {
       }
     );
   }
+
+  // IMAGES
+  else if (/\.(jpg|jpeg|png|gif)$/i.toLocaleString(pathName)) {
+    fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => {
+      res.writeHead(200, { "Content-type": "image/jpg" });
+      res.end(data);
+    });
+  }
   // URL NOT FOUND
   else {
     res.writeHead(404, { "Content-type": "text/html" });
